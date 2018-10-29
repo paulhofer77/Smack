@@ -24,6 +24,7 @@ class CreateAccountVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
 
         
         
@@ -31,6 +32,13 @@ class CreateAccountVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDataService.instance.avatarName != "" {
+            userImage.image = UIImage(named: UserDataService.instance.avatarName)
+            avatarName = UserDataService.instance.avatarName
+        }
+    }
 
     @IBAction func closePressed(_ sender: UIButton) {
         performSegue(withIdentifier: UNWIND, sender: nil)
