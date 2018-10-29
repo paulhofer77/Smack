@@ -15,6 +15,7 @@ class CreateAccountVC: UIViewController {
     
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
+    var backgroundColor: UIColor?
     
     //MARK: - Outlets
     @IBOutlet weak var userNameTextfield: UITextField!
@@ -22,8 +23,12 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var passwordTextfield: UITextField!
     @IBOutlet weak var userImage: UIImageView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
     
 
         
@@ -37,6 +42,9 @@ class CreateAccountVC: UIViewController {
         if UserDataService.instance.avatarName != "" {
             userImage.image = UIImage(named: UserDataService.instance.avatarName)
             avatarName = UserDataService.instance.avatarName
+            if avatarName.contains("light") && backgroundColor == nil {
+                userImage.backgroundColor = UIColor.lightGray
+            }
         }
     }
 
@@ -46,12 +54,44 @@ class CreateAccountVC: UIViewController {
     
     //MARK: - Picking Avatar and Setting the Background Color
     @IBAction func pickBAckgroundColorPressed(_ sender: UIButton) {
+        let r = CGFloat(arc4random_uniform(255)) / 255
+        let g = CGFloat(arc4random_uniform(255)) / 255
+        let b = CGFloat(arc4random_uniform(255)) / 255
+        backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+        
+//        spinner.isHidden = false
+//        spinner.startAnimating()
+        
+        NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        
+        UIView.animate(withDuration: 0.2) {
+            self.userImage.backgroundColor = self.backgroundColor
+//            self.spinner.stopAnimating()
+//            self.spinner.isHidden = true
+        }
     }
     
-    @IBAction func pickAvatarPressed(_ sender: UIButton) {
+    func setupView() {
+        spinner.isHidden = true
+        userNameTextfield.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
+        emailTextfield.attributedPlaceholder = NSAttributedString(string: "email", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
+        passwordTextfield.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CreateAccountVC.handleTap))
+        view.addGestureRecognizer(tap)
+        
+    }
+    
+    @objc func handleTap () {
+        view.endEditing(true)
+    }
+    
+    
+    @IBAction func pickAvatarPressed(_ sender: UIButton) {
         performSegue(withIdentifier: TO_AVATAR_PICKER, sender: nil)
     }
+    
+    
     
     //MARK: - Register User
     @IBAction func createAccountPressed(_ sender: UIButton) {
