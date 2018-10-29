@@ -25,13 +25,20 @@ class ChannelVC: UIViewController {
     
 
     @objc func userAndDataDidChange(_ notif: Notification) {
-        loginButton.setTitle("Test for Notif", for: .normal)
-        userImage.image = UIImage(named: "dark1")
+        loginButton.setTitle("TEst for NOTIF", for: .normal)
+        userImage.image = UIImage(named: "profileDefault")
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+//        usually check if someone is logged in and then sho the Profile VC
         
-        performSegue(withIdentifier: TO_LOGIN, sender: nil)
+//      modal presentation of 
+        let profile = ProfileVC()
+        profile.modalPresentationStyle = .custom
+        present(profile, animated: true, completion: nil)
+        
+//        perform Segue here if no User is logged in
+//        performSegue(withIdentifier: TO_LOGIN, sender: nil)
         
         
     }

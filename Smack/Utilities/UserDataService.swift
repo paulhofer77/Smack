@@ -66,7 +66,13 @@ class UserDataService {
         
     }
     
-    
+    func logoutUser() {
+        id = ""
+        avatarColor = ""
+        avatarName = ""
+        email = ""
+        email = ""
+    }
     
     
     
