@@ -25,6 +25,9 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableview.dataSource = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userAndDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.channelDidChange(_:)), name: NOTIF_CHANNELS_DID_CHANGE, object: nil)
+        
+        
        self.revealViewController()?.rearViewRevealWidth = self.view.frame.size.width - 60
         
         MessageService.instance.populateChannel(channelName: "TestCell1", channelDescript: "This is Hardcoded Text for the First Test Cell")
@@ -41,24 +44,29 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @objc func userAndDataDidChange(_ notif: Notification) {
         loginButton.setTitle("TEst for NOTIF", for: .normal)
         userImage.image = UIImage(named: "profileDefault")
+        tableview.reloadData()
+    }
+    
+    @objc func channelDidChange(_ notif: Notification) {
+        tableview.reloadData()
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
 //        usually check if someone is logged in and then sho the Profile VC
         
-//      modal presentation of 
-//        let profile = ProfileVC()
-//        profile.modalPresentationStyle = .custom
-//        present(profile, animated: true, completion: nil)
+//      modal presentation of Profil VC
+        let profile = ProfileVC()
+        profile.modalPresentationStyle = .custom
+        present(profile, animated: true, completion: nil)
         
 //        perform Segue here if no User is logged in
-        performSegue(withIdentifier: TO_LOGIN, sender: nil)
+//        performSegue(withIdentifier: TO_LOGIN, sender: nil)
         
         
     }
     
     @IBAction func addChannelPressed(_ sender: Any) {
-        
+//        including a check if a user is logged in
         let channel = AddChannelVC()
         channel.modalPresentationStyle = .custom
         present(channel, animated: true, completion: nil)
@@ -88,6 +96,14 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }else {
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let channel = MessageService.instance.channels[indexPath.row]
+        MessageService.instance.selectedChannel = channel
+        NotificationCenter.default.post(name: NOTIF_CHANNEL_SELECTED, object: nil)
+        
+        self.revealViewController()?.revealToggle(animated: true)
     }
     
 

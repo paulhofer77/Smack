@@ -72,6 +72,7 @@ class UserDataService {
         avatarName = ""
         email = ""
         email = ""
+        MessageService.instance.clearChannels()
     }
     
     
