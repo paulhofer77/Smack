@@ -644,6 +644,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ds0-Sb-g8q">
+                                <rect key="frame" x="8" y="604" width="35.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.90435930369999995" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -651,8 +657,10 @@
                             <constraint firstItem="l1U-PB-tg4" firstAttribute="leading" secondItem="ySW-EO-Lx9" secondAttribute="leading" id="7pZ-mI-itg"/>
                             <constraint firstItem="L52-F1-ijZ" firstAttribute="leading" secondItem="ySW-EO-Lx9" secondAttribute="leading" id="8u2-vZ-3Y7"/>
                             <constraint firstItem="jSS-hE-n5Q" firstAttribute="trailing" secondItem="ySW-EO-Lx9" secondAttribute="trailing" id="GXN-2g-LjP"/>
+                            <constraint firstItem="L52-F1-ijZ" firstAttribute="top" secondItem="ds0-Sb-g8q" secondAttribute="bottom" constant="6" id="KmS-Kg-tlE"/>
                             <constraint firstItem="ySW-EO-Lx9" firstAttribute="trailing" secondItem="l1U-PB-tg4" secondAttribute="trailing" id="OV8-nM-FZp"/>
                             <constraint firstItem="L52-F1-ijZ" firstAttribute="top" secondItem="jSS-hE-n5Q" secondAttribute="bottom" constant="30" id="RUu-QE-8WH"/>
+                            <constraint firstItem="ds0-Sb-g8q" firstAttribute="leading" secondItem="ySW-EO-Lx9" secondAttribute="leading" constant="8" id="Reo-35-cgh"/>
                             <constraint firstItem="l1U-PB-tg4" firstAttribute="top" secondItem="QNU-lG-0Ie" secondAttribute="top" id="UOo-Nd-QvE"/>
                             <constraint firstItem="ySW-EO-Lx9" firstAttribute="trailing" secondItem="L52-F1-ijZ" secondAttribute="trailing" id="c0c-de-fdm"/>
                             <constraint firstItem="ySW-EO-Lx9" firstAttribute="bottom" secondItem="L52-F1-ijZ" secondAttribute="bottom" id="cvl-3s-57t"/>
@@ -668,6 +676,7 @@
                         <outlet property="messageTextfield" destination="L52-F1-ijZ" id="gZ1-Yn-Icx"/>
                         <outlet property="sendButton" destination="2TC-GI-g2m" id="WoS-1S-cqq"/>
                         <outlet property="tableview" destination="jSS-hE-n5Q" id="PSi-Ym-9A1"/>
+                        <outlet property="typingUsersLabel" destination="ds0-Sb-g8q" id="5LC-km-jmt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bVl-CP-bi9" userLabel="First Responder" sceneMemberID="firstResponder"/>
