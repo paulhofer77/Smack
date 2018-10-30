@@ -13,13 +13,27 @@ class LoginVC: UIViewController {
     
     //    MARK: - Outlets
     
+  
+    @IBOutlet weak var userNameTextfield: UITextField!
+    @IBOutlet weak var passwordTextfield: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupView()
     }
     
+    
+    func setupView() {
+        userNameTextfield.attributedPlaceholder = NSAttributedString(string: "User Name", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
+        passwordTextfield.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.foregroundColor : smackPurplePlaceholder])
+    }
 
+    @IBAction func loginButtonPressed(_ sender: Any) {
+//        here are the functions to Login In the User via a call to the database
+    }
+    
+    
     @IBAction func closePressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
