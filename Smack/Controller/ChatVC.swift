@@ -8,13 +8,16 @@
 
 import UIKit
 
-class ChatVC: UIViewController {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    
 
     //    MARK: - Outlets
     
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var channelNameLabel: UILabel!
     
+    @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
     
     var channelForLabel = "Hardcoded Text"
@@ -23,6 +26,13 @@ class ChatVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableview.estimatedRowHeight = 80
+        tableview.rowHeight = UITableView.automaticDimension
+        
+        
+        tableview.delegate = self
+        tableview.dataSource = self
+        
         MessageService.instance.populateChannel(channelName: "TestCell1", channelDescript: "This is Hardcoded Text for the First Test Cell", channelID: "0001")
         MessageService.instance.populateChannel(channelName: "TestCell2", channelDescript: "This is Hardcoded Text for the Second Test Cell", channelID: "0002")
         
@@ -68,9 +78,11 @@ class ChatVC: UIViewController {
     func getMessages() {
 //        normally we would check at the server if for the channelId specific Messages, here i just hardcode some with the channel Ids from the HArdcoded Channels
 //        guard let channelID = MessageService.instance.selectedChannel?.channelId else { return }
-        MessageService.instance.createMessage(message: "First Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.73948557, 0.9875, 0.0957, 1]", id: "00001", timestamp: "30.10.2018")
-        MessageService.instance.createMessage(message: "Second Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.9324, 0.30945, 0.9834, 1]", id: "00002", timestamp: "30.10.2018")
-        MessageService.instance.createMessage(message: "Third Message", channelid: "0002", userName: "Andreja", userAvatar: "dark8", userAvatarColor: "[0.9327, 0.309435, 0.934, 1]", id: "00002", timestamp: "30.10.2018")
+//        MessageService.instance.createMessage(message: "First Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.73948557, 0.9875, 0.0957, 1]", id: "00001", timestamp: "30.10.2018")
+//        MessageService.instance.createMessage(message: "Second Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.9324, 0.30945, 0.9834, 1]", id: "00002", timestamp: "30.10.2018")
+//        MessageService.instance.createMessage(message: "Third Message", channelid: "0002", userName: "Andreja", userAvatar: "dark8", userAvatarColor: "[0.9327, 0.309435, 0.934, 1]", id: "00002", timestamp: "30.10.2018")
+        
+        tableview.reloadData()
        
         
         
@@ -89,9 +101,31 @@ class ChatVC: UIViewController {
         self.messageTextfield.text = ""
         self.messageTextfield.resignFirstResponder()
         
+        tableview.reloadData()
+        
         
         
     }
     
+    //    MARK: - Table View Methods
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MessageService.instance.messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableview.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageCell {
+            
+            let message = MessageService.instance.messages[indexPath.row]
+            cell.configureCell(message: message)
+            
+            return cell
+        }else {
+            return UITableViewCell()
+        }
+    }
     
 }

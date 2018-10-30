@@ -48,7 +48,7 @@ class MessageService {
     
     //    helper function because i dont have the database
     func createMessage(message: String, channelid: String, userName: String, userAvatar: String, userAvatarColor: String, id: String, timestamp: String){
-        clearMessages()
+//        clearMessages()
         let newMessage = Message.init(message: message, userName: userName, channelID: channelid, userAvatar: userAvatar, userAvatarColor: userAvatarColor, id: id, timestamp: timestamp)
         messages.append(newMessage)
 
