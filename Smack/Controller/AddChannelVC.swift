@@ -40,6 +40,16 @@ class AddChannelVC: UIViewController {
     }
 
     @IBAction func createChannelPressed(_ sender: Any) {
+        
+        guard let channelName = nameTextfield.text , nameTextfield.text != "" else { return }
+        guard let channelDescription = descriptionTextfield.text , descriptionTextfield.text != "" else { return }
+        
+//        SocketService.instance.addChannel(channelName: channelName, channelDescription: channelDescription)
+//        self.dismiss(animated: true, completion: nil)
+        
+        MessageService.instance.populateChannel(channelName: channelName, channelDescript: channelDescription)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func closeModelPressed(_ sender: Any) {

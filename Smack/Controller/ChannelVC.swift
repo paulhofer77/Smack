@@ -30,8 +30,13 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         MessageService.instance.populateChannel(channelName: "TestCell1", channelDescript: "This is Hardcoded Text for the First Test Cell")
         MessageService.instance.populateChannel(channelName: "TestCell2", channelDescript: "This is Hardcoded Text for the Second Test Cell")
         
+//        SocketService.instance.getChannel()
+        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableview.reloadData()
+    }
 
     @objc func userAndDataDidChange(_ notif: Notification) {
         loginButton.setTitle("TEst for NOTIF", for: .normal)
