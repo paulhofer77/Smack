@@ -14,18 +14,21 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //    MARK: - Outlets
     
+    @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var channelNameLabel: UILabel!
-    
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
     
+    var isTyping = false
     var channelForLabel = "Hardcoded Text"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        sendButton.isHidden = true
+        
         tableview.estimatedRowHeight = 80
         tableview.rowHeight = UITableView.automaticDimension
         
@@ -83,6 +86,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        MessageService.instance.createMessage(message: "Third Message", channelid: "0002", userName: "Andreja", userAvatar: "dark8", userAvatarColor: "[0.9327, 0.309435, 0.934, 1]", id: "00002", timestamp: "30.10.2018")
         
         tableview.reloadData()
+        
        
         
         
@@ -102,10 +106,25 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.messageTextfield.resignFirstResponder()
         
         tableview.reloadData()
+        let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
+        tableview.scrollToRow(at: endIndex, at: .bottom, animated: false)
         
+    }
+    
+    
+    @IBAction func messageTextfieldEditing(_ sender: Any) {
+        if messageTextfield.text == "" {
+            isTyping = false
+            sendButton.isHidden = true
+        } else if isTyping == false {
+            sendButton.isHidden = false
+            isTyping = true
+        }
         
         
     }
+    
+    
     
     //    MARK: - Table View Methods
     func numberOfSections(in tableView: UITableView) -> Int {
