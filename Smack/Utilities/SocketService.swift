@@ -65,7 +65,7 @@ class SocketService: NSObject {
     
     //    MARK: - Getting/Dedection a message via Socket (on a Object from the Server)
     
-    func getMessage() {
+    func getMessage(completion: @escaping (_ newMessage: Message) -> Void) {
         
         socket.on("messageCreated") { (dataArray, ack) in
             guard let messageBody = dataArray[0] as? String else { return }
@@ -77,15 +77,10 @@ class SocketService: NSObject {
             guard let messagId = dataArray[6] as? String else { return }
             guard let timestamp = dataArray[7] as? String else { return }
             
-            if channelId == MessageService.instance.selectedChannel?.channelId {
-//                and check if we are logged in
-                
-                let newMessage = Message.init(message: messageBody, userName: userName, channelID: channelId, userAvatar: userAvatar, userAvatarColor: userAvatarColor, id: messagId, timestamp: timestamp)
-                MessageService.instance.messages.append(newMessage)
-                
-            }else {
-//               nothing should happen
-            }
+            let newMessage = Message.init(message: messageBody, userName: userName, channelID: channelId, userAvatar: userAvatar, userAvatarColor: userAvatarColor, id: messagId, timestamp: timestamp)
+            
+            completion(newMessage)
+            
             
             
         }

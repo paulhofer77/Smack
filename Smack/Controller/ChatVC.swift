@@ -48,6 +48,19 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.channelSelected(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
         
+////        SocketService.instance.getMessage { (newMessage) in
+//            if newMessage.channelID == MessageService.instance.selectedChannel?.channelId {
+////                and if we are logged In
+//                MessageService.instance.messages.append(newMessage)
+//                self.tableview.reloadData()
+//                if MessageService.instance.messages.count > 0 {
+//                    let endIndex = IndexPath(row: MessageService.instance.messages.count - 1, section: 0)
+//                    self.tableview.scrollToRow(at: endIndex, at: .bottom, animated: false)
+//
+//                }
+//            }
+//        }
+        
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         
@@ -88,33 +101,33 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tableview.reloadData()
         
-        SocketService.instance.getTypingUser { (typingUser) in
-            guard let channelId = MessageService.instance.selectedChannel?.channelId else {return}
-            var names = ""
-            var numberOfTypers = 0
-            
-            for (typingUser, channel) in typingUser {
-                if typingUser != UserDataService.instance.name && channel == channelId {
-                    if names == "" {
-                        names = typingUser
-                    }else {
-                        names = "\(names), \(typingUser)"
-                    }
-                    numberOfTypers += 1
-                }
-            }
-            
-            if numberOfTypers > 0 {
-//                and if we are logged in
-                var verb = "is"
-                if numberOfTypers > 1 {
-                    verb = "are"
-                }
-                self.typingUsersLabel.text = "\(names) \(verb) typing"
-            }else {
-                self.typingUsersLabel.text = ""
-            }
-        }
+//        SocketService.instance.getTypingUser { (typingUser) in
+//            guard let channelId = MessageService.instance.selectedChannel?.channelId else {return}
+//            var names = ""
+//            var numberOfTypers = 0
+//
+//            for (typingUser, channel) in typingUser {
+//                if typingUser != UserDataService.instance.name && channel == channelId {
+//                    if names == "" {
+//                        names = typingUser
+//                    }else {
+//                        names = "\(names), \(typingUser)"
+//                    }
+//                    numberOfTypers += 1
+//                }
+//            }
+        
+//            if numberOfTypers > 0 {
+////                and if we are logged in
+//                var verb = "is"
+//                if numberOfTypers > 1 {
+//                    verb = "are"
+//                }
+//                self.typingUsersLabel.text = "\(names) \(verb) typing"
+//            }else {
+//                self.typingUsersLabel.text = ""
+//            }
+//        }
         
     }
 
