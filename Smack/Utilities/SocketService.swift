@@ -5,7 +5,7 @@
 //  Created by Paul Hofer on 30.10.18.
 //  Copyright © 2018 Hopeli. All rights reserved.
 //
-
+//
 //import UIKit
 //import SocketIO
 //
@@ -49,11 +49,18 @@
 //            
 //            guard let channelName = dataArray[0] as? String else { return }
 //            guard let channelDescription = dataArray[1] as? String else { return }
-//            guard let channelId = dataArray[2] as? String else { return }
+//            guard let newchannelId = dataArray[2] as? String else { return }
 //            
-//            let newChannel = Channel.init(channelTitle: channelName, channelDescription: channelDescription)
+//            let newChannel = Channel.init(channelTitle: channelName, channelDescription: channelDescription, channelId: newchannelId)
 //            MessageService.instance.channels.append(newChannel)
 //        }
+//    }
+//    
+//    //    MARK: - Add a message via Socket
+//    
+//    func AddMessage(messageBody: String, userId: String, channelId: String) {
+//        let user = UserDataService.instance
+//        socket.emit("newMessage", messageBody, userId, channelId, user.name, user.avatarName, user.avatarColor)
 //    }
 //    
 //    

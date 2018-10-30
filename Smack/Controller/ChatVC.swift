@@ -15,6 +15,8 @@ class ChatVC: UIViewController {
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var channelNameLabel: UILabel!
     
+    @IBOutlet weak var messageTextfield: UITextField!
+    
     var channelForLabel = "Hardcoded Text"
     
     
@@ -68,11 +70,28 @@ class ChatVC: UIViewController {
 //        guard let channelID = MessageService.instance.selectedChannel?.channelId else { return }
         MessageService.instance.createMessage(message: "First Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.73948557, 0.9875, 0.0957, 1]", id: "00001", timestamp: "30.10.2018")
         MessageService.instance.createMessage(message: "Second Message", channelid: "0001", userName: "Paul", userAvatar: "dark1", userAvatarColor: "[0.9324, 0.30945, 0.9834, 1]", id: "00002", timestamp: "30.10.2018")
-        MessageService.instance.createMessage(message: "Third Message", channelid: "0002", userName: "Andreja", userAvatar: "dark8", userAvatarColor: "[0.09327, 0.0309435, 0.0934, 1]", id: "00002", timestamp: "30.10.2018")
+        MessageService.instance.createMessage(message: "Third Message", channelid: "0002", userName: "Andreja", userAvatar: "dark8", userAvatarColor: "[0.9327, 0.309435, 0.934, 1]", id: "00002", timestamp: "30.10.2018")
        
         
         
     }
 
+    
+    
+    @IBAction func sendMessagePressed(_ sender: UIButton) {
+//        check if somebody is loggedIn
+        
+        guard let channelID =  MessageService.instance.selectedChannel?.channelId else {return}
+        guard let message = messageTextfield.text else { return }
+        MessageService.instance.createMessage(message: message, channelid: channelID, userName: "Thomas", userAvatar: "light17", userAvatarColor: "[0.07327, 0.309435, 0.934, 1]", id: "00003", timestamp: "30.10.2018")
+        
+        print(MessageService.instance.messages)
+        self.messageTextfield.text = ""
+        self.messageTextfield.resignFirstResponder()
+        
+        
+        
+    }
+    
     
 }
