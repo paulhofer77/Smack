@@ -52,6 +52,17 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    @IBAction func addChannelPressed(_ sender: Any) {
+        
+        let channel = AddChannelVC()
+        channel.modalPresentationStyle = .custom
+        present(channel, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
     //    MARK: - TableView MEthods
     
     func numberOfSections(in tableView: UITableView) -> Int {
