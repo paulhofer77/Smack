@@ -43,11 +43,14 @@ class AddChannelVC: UIViewController {
         
         guard let channelName = nameTextfield.text , nameTextfield.text != "" else { return }
         guard let channelDescription = descriptionTextfield.text , descriptionTextfield.text != "" else { return }
+        let randomeChannelId = arc4random_uniform(1000)
+        let channelID = "\(randomeChannelId)"
+        print(channelID)
         
 //        SocketService.instance.addChannel(channelName: channelName, channelDescription: channelDescription)
 //        self.dismiss(animated: true, completion: nil)
         
-        MessageService.instance.populateChannel(channelName: channelName, channelDescript: channelDescription)
+        MessageService.instance.populateChannel(channelName: channelName, channelDescript: channelDescription, channelID: channelID)
         self.dismiss(animated: true, completion: nil)
         
     }

@@ -30,8 +30,6 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
        self.revealViewController()?.rearViewRevealWidth = self.view.frame.size.width - 60
         
-        MessageService.instance.populateChannel(channelName: "TestCell1", channelDescript: "This is Hardcoded Text for the First Test Cell")
-        MessageService.instance.populateChannel(channelName: "TestCell2", channelDescript: "This is Hardcoded Text for the Second Test Cell")
         
 //        SocketService.instance.getChannel()
         
